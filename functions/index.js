@@ -55,8 +55,10 @@ async function textFunc(event) {
   switch (event.message.text) {
     case "＞レッスン履歴":
       message = await getLessonHistory("hoge");
+      break;
     case "＞レッスン予約確認":
       message = { type: "text", text: "レッスン予約確認です！" };
+      break;
     case "テスト":
       message = { type: "text", text: event.source.userId };
       break;
