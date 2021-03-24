@@ -1,14 +1,16 @@
 const functions = require("firebase-functions");
 const line = require("@line/bot-sdk");
 require("dotenv").config();
-const client = new line.Client({
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET,
-});
 
 exports.linebot = functions
   .region("asia-northeast1")
   .https.onRequest(async (req, res) => {
+
+    const client = new line.Client({
+      channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+      channelSecret: process.env.CHANNEL_SECRET,
+    });
+    
     for (const event of req.body.events) {
       let message;
       switch (event.type) {
@@ -65,6 +67,12 @@ async function textFunc(event) {
 //リッチメニューを切り替える関数
 //req.body:{userId:'xxxxxxxxxx'}
 exports.changeMenu = functions.https.onRequest(async (req, res) => {
+
+  const client = new line.Client({
+    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+    channelSecret: process.env.CHANNEL_SECRET,
+  });
+
   const userId = req.body.userId;
   //1or2
   const array = [1, 2];
