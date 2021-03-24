@@ -39,8 +39,8 @@
         "height": 842
       },
       "action": {
-        "type": "message",
-        "text": "https://kinokodata.net"
+        "type": "uri",
+        "uri": "https://kinokodata.net"
       }
     },
     {
@@ -57,20 +57,20 @@
     },
     {
       "bounds": {
-        "x": 1666,
-        "y": 840,
+        "x": 841,
+        "y": 844,
         "width": 834,
         "height": 842
       },
       "action": {
         "type": "message",
-        "text": "> 予約確認"
+        "text": "> レッスン予約確認"
       }
     },
     {
       "bounds": {
-        "x": 26,
-        "y": 834,
+        "x": 1666,
+        "y": 844,
         "width": 834,
         "height": 842
       },
