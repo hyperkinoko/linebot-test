@@ -172,7 +172,7 @@ async function getLessonHistory(user) {
 
 //pushメッセージを投げる関数
 //req.body:{userId:'xxxxxxxxxx'}
-exports.changeMenu = functions
+exports.pushMessage = functions
   .region("asia-northeast1")
   .https.onRequest(async (req, res) => {
     const client = new line.Client({
