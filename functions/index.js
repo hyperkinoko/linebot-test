@@ -5,12 +5,11 @@ require("dotenv").config();
 exports.linebot = functions
   .region("asia-northeast1")
   .https.onRequest(async (req, res) => {
-
     const client = new line.Client({
       channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
       channelSecret: process.env.CHANNEL_SECRET,
     });
-    
+
     for (const event of req.body.events) {
       let message;
       switch (event.type) {
@@ -57,6 +56,9 @@ async function textFunc(event) {
       message = await getLessonHistory('hoge');
     case "＞レッスン予約確認":
       message = { type: "text", text: "レッスン予約確認です！" };
+    case "テスト":
+      message = { type: "text", text: event.soruce.userId };
+      break;
     default:
       message = { type: "text", text: `${event.message.text}を受け取ったよ！` };
       break;
@@ -67,7 +69,6 @@ async function textFunc(event) {
 //リッチメニューを切り替える関数
 //req.body:{userId:'xxxxxxxxxx'}
 exports.changeMenu = functions.https.onRequest(async (req, res) => {
-
   const client = new line.Client({
     channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
     channelSecret: process.env.CHANNEL_SECRET,
