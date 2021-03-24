@@ -53,7 +53,7 @@ async function textFunc(event) {
   let message;
   switch (event.message.text) {
     case "＞レッスン履歴":
-      message = await getLessonHistory('hoge');
+      message = await getLessonHistory("hoge");
     case "＞レッスン予約確認":
       message = { type: "text", text: "レッスン予約確認です！" };
     case "テスト":
@@ -107,56 +107,60 @@ exports.changeMenu = functions.https.onRequest(async (req, res) => {
 
 async function getLessonHistory(user) {
   return {
-    "type": "bubble",
-    "direction": "ltr",
-    "header": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "予約済みレッスン一覧",
-          "align": "center",
-          "contents": []
-        }
-      ]
+    type: "flex",
+    altText: "flexMessageです",
+    contents: {
+      type: "bubble",
+      direction: "ltr",
+      header: {
+        type: "box",
+        layout: "vertical",
+        contents: [
+          {
+            type: "text",
+            text: "予約済みレッスン一覧",
+            align: "center",
+            contents: [],
+          },
+        ],
+      },
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "lg",
+        contents: [
+          {
+            type: "text",
+            text: "3/12 14:00-15:50",
+            align: "start",
+            contents: [],
+          },
+          {
+            type: "text",
+            text: "3/15 14:00-15:50",
+            contents: [],
+          },
+          {
+            type: "text",
+            text: "3/20 14:00-15:50",
+            contents: [],
+          },
+        ],
+      },
+      footer: {
+        type: "box",
+        layout: "horizontal",
+        contents: [
+          {
+            type: "button",
+            action: {
+              type: "uri",
+              label: "詳細を確認",
+              uri: "https://kinokodata.net",
+            },
+          },
+        ],
+      },
     },
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "spacing": "lg",
-      "contents": [
-        {
-          "type": "text",
-          "text": "3/12 14:00-15:50",
-          "align": "start",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "3/15 14:00-15:50",
-          "contents": []
-        },
-        {
-          "type": "text",
-          "text": "3/20 14:00-15:50",
-          "contents": []
-        }
-      ]
-    },
-    "footer": {
-      "type": "box",
-      "layout": "horizontal",
-      "contents": [
-        {
-          "type": "button",
-          "action": {
-            "type": "uri",
-            "label": "詳細を確認",
-            "uri": "https://kinokodata.net"
-          }
-        }
-      ]
-    }
   };
 }
