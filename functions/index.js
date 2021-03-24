@@ -69,7 +69,9 @@ async function textFunc(event) {
 
 //リッチメニューを切り替える関数
 //req.body:{userId:'xxxxxxxxxx'}
-exports.changeMenu = functions.https.onRequest(async (req, res) => {
+exports.changeMenu = functions
+  .region("asia-northeast1")
+  .https.onRequest(async (req, res) => {
   const client = new line.Client({
     channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
     channelSecret: process.env.CHANNEL_SECRET,
