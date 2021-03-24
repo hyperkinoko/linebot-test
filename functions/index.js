@@ -11,6 +11,7 @@ exports.linebot = functions
     });
 
     for (const event of req.body.events) {
+      console.log(event);
       let message;
       switch (event.type) {
         case "message":
