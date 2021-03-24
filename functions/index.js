@@ -74,41 +74,41 @@ async function textFunc(event) {
 exports.changeMenu = functions
   .region("asia-northeast1")
   .https.onRequest(async (req, res) => {
-  const client = new line.Client({
-    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-    channelSecret: process.env.CHANNEL_SECRET,
+    const client = new line.Client({
+      channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+      channelSecret: process.env.CHANNEL_SECRET,
+    });
+
+    const userId = req.body.userId;
+    //1or2
+    const array = [1, 2];
+    const randomId = array[Math.floor(Math.random() * array.length)];
+    let menuId;
+    switch (randomId) {
+      case 1:
+        menuId = "richmenu-2f36fcd44da48af5bd26276b0f79e43e";
+        break;
+      case 2:
+        menuId = "richmenu-fc9f09ef5de0722388863b1f9147d067";
+        break;
+    }
+
+    //メニューを変える
+    await client.linkRichMenuToUser(userId, menuId);
+
+    console.log(`-----------------------`);
+    console.log(req.body);
+    console.log(`-----------------------`);
+
+    //CORS用にAccess-Control-Allow系ヘッダを追加
+    //許可するサイトを指定
+    res.set("Access-Control-Allow-Origin", "http://google.com");
+    //DELETEだけは拒否
+    res.set("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST");
+    //Content-Typeのみを許可
+    res.set("Access-Control-Allow-Headers", "Content-Type");
+    res.json("ok");
   });
-
-  const userId = req.body.userId;
-  //1or2
-  const array = [1, 2];
-  const randomId = array[Math.floor(Math.random() * array.length)];
-  let menuId;
-  switch (randomId) {
-    case 1:
-      menuId = "richmenu-2f36fcd44da48af5bd26276b0f79e43e";
-      break;
-    case 2:
-      menuId = "richmenu-fc9f09ef5de0722388863b1f9147d067";
-      break;
-  }
-
-  //メニューを変える
-  await client.linkRichMenuToUser(userId, menuId);
-
-  console.log(`-----------------------`);
-  console.log(req.body);
-  console.log(`-----------------------`);
-
-  //CORS用にAccess-Control-Allow系ヘッダを追加
-  //許可するサイトを指定
-  res.set("Access-Control-Allow-Origin", "http://google.com");
-  //DELETEだけは拒否
-  res.set("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST");
-  //Content-Typeのみを許可
-  res.set("Access-Control-Allow-Headers", "Content-Type");
-  res.json("ok");
-});
 
 async function getLessonHistory(user) {
   return {
@@ -169,3 +169,35 @@ async function getLessonHistory(user) {
     },
   };
 }
+
+//pushメッセージを投げる関数
+//req.body:{userId:'xxxxxxxxxx'}
+exports.changeMenu = functions
+  .region("asia-northeast1")
+  .https.onRequest(async (req, res) => {
+    const client = new line.Client({
+      channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+      channelSecret: process.env.CHANNEL_SECRET,
+    });
+
+    const userId = req.body.userId;
+
+    //pushメッセージを
+    await client.pushMessage(userId, {
+      type: "text",
+      text: "レッスン15分前になりました。準備をお願いします。",
+    });
+
+    console.log(`-----------------------`);
+    console.log(req.body);
+    console.log(`-----------------------`);
+
+    //CORS用にAccess-Control-Allow系ヘッダを追加
+    //許可するサイトを指定
+    res.set("Access-Control-Allow-Origin", "http://google.com");
+    //DELETEだけは拒否
+    res.set("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST");
+    //Content-Typeのみを許可
+    res.set("Access-Control-Allow-Headers", "Content-Type");
+    res.json("ok");
+  });
