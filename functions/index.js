@@ -109,7 +109,7 @@ exports.changeMenu = functions.https.onRequest(async (req, res) => {
 async function getLessonHistory(user) {
   return {
     type: "flex",
-    altText: "flexMessageです",
+    altText: "レッスン履歴一覧",
     contents: {
       type: "bubble",
       direction: "ltr",
